@@ -20,7 +20,8 @@ const MainPage = () => {
 
      
         
-         {normalState?<Alternative></Alternative>: <TableComponent firstTable={firstTable}  ></TableComponent> }
+          <TableComponent firstTable={firstTable}  ></TableComponent>
+          {/* {normalState ? <Alternative firstTable={firstTable}></Alternative> : } */}
           
           
       </div>

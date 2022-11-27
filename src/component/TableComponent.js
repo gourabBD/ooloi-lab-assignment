@@ -32,31 +32,31 @@ const TableComponent = ({ firstTable }) => {
         <table className="table w-full">
           <thead>
             <tr>
-             {secondTableState  ?  <></>: <th className="flex ">
+             { secondTableState ? <th className="flex ">
                 Name{" "}
                 <button onClick={handleNameSort} className="mx-2">
                   <BiSort></BiSort>
                 </button>
-              </th>  }
-             { secondTableState   ?<></> : <th>
+              </th> : <></> }
+             { firstTableState && secondTableState ? <th>
                 City{" "}
                 <button onClick={handlesort} className="mx-2">
                   <BiSort ></BiSort>
                 </button>
-              </th>  }
-             {thirdTableState   ? <></>:<th>
+              </th> :<></>  }
+             {thirdTableState ? <th>
                 Email Address{" "}
                 <button onClick={handleEmailSort} className="mx-2">
                   <BiSort></BiSort>
                 </button>
-              </th>  }
+              </th> :<></> }
              {
-              firstTableState  ? <></> :<th>
+              firstTableState ? <th>
                 Joining Date{" "}
                 <button onClick={handleDateSort} className="mx-2">
                   <BiSort></BiSort>
                 </button>
-              </th>  
+              </th>: <></>  
              }
               <th>
                 Role{" "}
@@ -69,7 +69,7 @@ const TableComponent = ({ firstTable }) => {
           <tbody>
             {firstTable?.map((tabData) => (
               <tr key={Math.random()}>
-               {secondTableState  ?  <></>: <td>
+               {secondTableState  ?   <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
                       <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -80,11 +80,11 @@ const TableComponent = ({ firstTable }) => {
                       <div className="font-bold">{tabData?.person.name}</div>
                     </div>
                   </div>
-                </td>  }
-                {secondTableState?   <></> :<td>{tabData?.city}</td>  }
-                {thirdTableState ?<></>:<td>{tabData?.email}</td> }
-                {firstTableState ? <></>:
-                  <td>{tabData?.joiningDate}</td>  }
+                </td> :<></> }
+                {firstTableState && secondTableState ?  <td>{tabData?.city}</td> : <></>  }
+                {thirdTableState ?<td>{tabData?.email}</td> :<></>}
+                {firstTableState ? 
+                  <td>{tabData?.joiningDate}</td> :<></> }
                 <td>{tabData?.role}</td>
               </tr>
             ))}
