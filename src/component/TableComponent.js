@@ -7,6 +7,8 @@ const TableComponent = ({ setNormalState, normalState }) => {
   const [firstTableState, setFirstTableState] = useState(true);
   const [secondTableState, setSecondTableState] = useState(true);
   const [thirdTableState, setThirdTableState] = useState(true);
+  const [cityTableState, setCityTableState] = useState(true);
+  const [roleTableState, setRoleTableState] = useState(true);
 
   const handlesort = (category) => {
     if (category === "city") {
@@ -15,6 +17,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
       );
 
       setNormalState(sortedData);
+      setCityTableState(false)
     }
     if (category === "role") {
       const sortedData = [...normalState].sort((a, b) =>
@@ -22,6 +25,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
       );
 
       setNormalState(sortedData);
+      setRoleTableState(false)
     }
   };
   //name sorting
@@ -48,11 +52,11 @@ const TableComponent = ({ setNormalState, normalState }) => {
   const handleDateSort = () => {
     setThirdTableState(false);
     const sortedData = normalState.sort((a, b) =>
-      b.joiningDate
+      a.joiningDate
         .split("/")
         .reverse()
         .join()
-        .localeCompare(a.joiningDate.split("/").reverse().join())
+        .localeCompare(b.joiningDate.split("/").reverse().join())
     );
 
     setNormalState(sortedData);
@@ -77,7 +81,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
                 <th>
                   City
                   <button onClick={() => handlesort("city")} className="mx-2">
-                    <BiSort></BiSort>
+                   {cityTableState ? <BiSort></BiSort> : <></>}
                   </button>
                 </th>
               ) : (
@@ -106,7 +110,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
               <th>
                 Role
                 <button onClick={() => handlesort("role")} className="mx-2">
-                  <BiSort></BiSort>
+                 {roleTableState ? <BiSort></BiSort> : <></>}
                 </button>
               </th>
             </tr>
