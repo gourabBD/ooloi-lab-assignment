@@ -10,8 +10,8 @@ const MainPage = () => {
   useEffect(() =>{
 		fetch("Tabledata.json")
 			.then((response) => response.json())
-			.then((data) => setFirstTable(data))
-	},[])
+			.then((data) => setNormalState(data))
+	},[setNormalState])
  
 
   return (
@@ -20,7 +20,7 @@ const MainPage = () => {
 
      
         
-          <TableComponent firstTable={firstTable}  ></TableComponent>
+          <TableComponent setNormalState={setNormalState} normalState={normalState}  ></TableComponent>
           {/* {normalState ? <Alternative firstTable={firstTable}></Alternative> : } */}
           
           
