@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState,  } from "react";
 import { BiSort } from "react-icons/bi";
-import { AuthContext } from "../contexts/AuthProvider";
+
 
 const TableComponent = ({ setNormalState, normalState }) => {
-  // const { setNormalState, normalState } = useContext(AuthContext);
+  
   const [firstTableState, setFirstTableState] = useState(true);
   const [secondTableState, setSecondTableState] = useState(true);
   const [thirdTableState, setThirdTableState] = useState(true);
@@ -34,9 +34,8 @@ const TableComponent = ({ setNormalState, normalState }) => {
 
     setNormalState(sortedData);
   };
-//email sorting
+  //email sorting
   const handleEmailSort = () => {
-    
     setSecondTableState(false);
     const sortedData = [...normalState].sort((a, b) =>
       a?.email > b?.email ? 1 : -1
@@ -47,20 +46,23 @@ const TableComponent = ({ setNormalState, normalState }) => {
 
   // joining Date sorting
   const handleDateSort = () => {
-    
     setThirdTableState(false);
-    const sortedData = [...normalState].sort((a, b) =>
-      a?.joiningDate > b?.joiningDate ? 1 : -1
+    const sortedData = normalState.sort((a, b) =>
+      b.joiningDate
+        .split("/")
+        .reverse()
+        .join()
+        .localeCompare(a.joiningDate.split("/").reverse().join())
     );
 
     setNormalState(sortedData);
   };
   return (
     <div>
-      <div className="overflow-x-auto w-full">
-        <table className="table w-full">
+      <div className="overflow-x-auto w-full ">
+        <table className="table table-zebra  w-full">
           <thead>
-            <tr>
+            <tr className="w-full">
               {secondTableState ? (
                 <th className="flex ">
                   Name
@@ -85,7 +87,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
                 <th>
                   Email Address
                   <button onClick={handleEmailSort} className="mx-2">
-                  {secondTableState ? <BiSort></BiSort> : <></>}
+                    {secondTableState ? <BiSort></BiSort> : <></>}
                   </button>
                 </th>
               ) : (
@@ -95,7 +97,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
                 <th>
                   Joining Date
                   <button onClick={handleDateSort} className="mx-2">
-                  {thirdTableState ? <BiSort></BiSort> : <></>}
+                    {thirdTableState ? <BiSort></BiSort> : <></>}
                   </button>
                 </th>
               ) : (
@@ -116,12 +118,12 @@ const TableComponent = ({ setNormalState, normalState }) => {
                   <td>
                     <div className="flex items-center space-x-3">
                       <div className="avatar">
-                        <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <div className="w-8 rounded-full ">
                           <img src="https://placeimg.com/192/192/people" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{tabData?.person.name}</div>
+                        <div className="">{tabData?.person.name}</div>
                       </div>
                     </div>
                   </td>
