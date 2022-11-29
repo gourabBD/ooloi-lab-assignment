@@ -1,9 +1,8 @@
-import React, { useState,  } from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { BiSort } from "react-icons/bi";
 
-
 const TableComponent = ({ setNormalState, normalState }) => {
-  
   const [firstTableState, setFirstTableState] = useState(true);
   const [secondTableState, setSecondTableState] = useState(true);
   const [thirdTableState, setThirdTableState] = useState(true);
@@ -17,7 +16,8 @@ const TableComponent = ({ setNormalState, normalState }) => {
       );
 
       setNormalState(sortedData);
-      setCityTableState(false)
+      setCityTableState(false);
+      toast.success(`Table is sorted, in ascending order.`);
     }
     if (category === "role") {
       const sortedData = [...normalState].sort((a, b) =>
@@ -25,7 +25,8 @@ const TableComponent = ({ setNormalState, normalState }) => {
       );
 
       setNormalState(sortedData);
-      setRoleTableState(false)
+      setRoleTableState(false);
+      toast.success(`Table is sorted, in ascending order.`);
     }
   };
   //name sorting
@@ -37,6 +38,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
     );
 
     setNormalState(sortedData);
+    toast.success(` Table is sorted, in ascending order.`);
   };
   //email sorting
   const handleEmailSort = () => {
@@ -46,6 +48,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
     );
 
     setNormalState(sortedData);
+    toast.success(` Table is sorted, in ascending order.`);
   };
 
   // joining Date sorting
@@ -60,6 +63,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
     );
 
     setNormalState(sortedData);
+    toast.success(` Table is sorted, in ascending order.`);
   };
   return (
     <div>
@@ -67,7 +71,9 @@ const TableComponent = ({ setNormalState, normalState }) => {
         <table className="table table-zebra  w-full">
           <thead>
             <tr className="w-full">
-              {secondTableState ? (
+              {secondTableState ||
+              (roleTableState && !thirdTableState) ||
+              !roleTableState ? (
                 <th className="flex ">
                   Name
                   <button onClick={handleNameSort} className="mx-2">
@@ -77,17 +83,19 @@ const TableComponent = ({ setNormalState, normalState }) => {
               ) : (
                 <></>
               )}
-              {firstTableState && secondTableState ? (
+              {(firstTableState && secondTableState) || !roleTableState ? (
                 <th>
                   City
                   <button onClick={() => handlesort("city")} className="mx-2">
-                   {cityTableState ? <BiSort></BiSort> : <></>}
+                    {cityTableState ? <BiSort></BiSort> : <></>}
                   </button>
                 </th>
               ) : (
                 <></>
               )}
-              {thirdTableState ? (
+              {thirdTableState ||
+              (!firstTableState && !thirdTableState) ||
+              !roleTableState ? (
                 <th>
                   Email Address
                   <button onClick={handleEmailSort} className="mx-2">
@@ -97,7 +105,9 @@ const TableComponent = ({ setNormalState, normalState }) => {
               ) : (
                 <></>
               )}
-              {firstTableState ? (
+              {firstTableState ||
+              (roleTableState && !secondTableState) ||
+              !roleTableState ? (
                 <th>
                   Joining Date
                   <button onClick={handleDateSort} className="mx-2">
@@ -110,7 +120,7 @@ const TableComponent = ({ setNormalState, normalState }) => {
               <th>
                 Role
                 <button onClick={() => handlesort("role")} className="mx-2">
-                 {roleTableState ? <BiSort></BiSort> : <></>}
+                  {roleTableState ? <BiSort></BiSort> : <></>}
                 </button>
               </th>
             </tr>
@@ -118,7 +128,9 @@ const TableComponent = ({ setNormalState, normalState }) => {
           <tbody>
             {normalState?.map((tabData) => (
               <tr key={Math.random()}>
-                {secondTableState ? (
+                {secondTableState ||
+                (roleTableState && !thirdTableState) ||
+                !roleTableState ? (
                   <td>
                     <div className="flex items-center space-x-3">
                       <div className="avatar">
@@ -134,13 +146,25 @@ const TableComponent = ({ setNormalState, normalState }) => {
                 ) : (
                   <></>
                 )}
-                {firstTableState && secondTableState ? (
+                {(firstTableState && secondTableState) || !roleTableState ? (
                   <td>{tabData?.city}</td>
                 ) : (
                   <></>
                 )}
-                {thirdTableState ? <td>{tabData?.email}</td> : <></>}
-                {firstTableState ? <td>{tabData?.joiningDate}</td> : <></>}
+                {thirdTableState ||
+                (!firstTableState && !thirdTableState) ||
+                !roleTableState ? (
+                  <td>{tabData?.email}</td>
+                ) : (
+                  <></>
+                )}
+                {firstTableState ||
+                (roleTableState && !secondTableState) ||
+                !roleTableState ? (
+                  <td>{tabData?.joiningDate}</td>
+                ) : (
+                  <></>
+                )}
                 <td>{tabData?.role}</td>
               </tr>
             ))}
