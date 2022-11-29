@@ -3,10 +3,15 @@ import toast from "react-hot-toast";
 import { BiSort } from "react-icons/bi";
 
 const TableComponent = ({ setNormalState, normalState }) => {
+  //Name  state
   const [firstTableState, setFirstTableState] = useState(true);
+  //Email  state
   const [secondTableState, setSecondTableState] = useState(true);
+  //Joining date  state
   const [thirdTableState, setThirdTableState] = useState(true);
+  //City state
   const [cityTableState, setCityTableState] = useState(true);
+  //Role state
   const [roleTableState, setRoleTableState] = useState(true);
 
   const handlesort = (category) => {
